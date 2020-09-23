@@ -22,10 +22,10 @@ CREATE TABLE produtos(
 
 
 -- Alter
-ALTER TABLE tipos_produto ADD peso DECIMAL(8,2);
+ALTER TABLE tipos_produto ADD quantidade INT NOT NULL;
 
--- Verificando se o novo campo foi realmente adicionado
-SELECT * FROM tipos_produto;
+-- Renomeando uma tabela
+RENAME TABLE tipos_produto TO tipo_produto;
 
 
 -- Drop (Não irá permitir deletar a tabel apor conter um relacionamento com produdos)

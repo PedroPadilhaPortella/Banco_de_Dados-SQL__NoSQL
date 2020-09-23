@@ -1,6 +1,6 @@
-CREATE DATABASE secao04;
+CREATE DATABASE geek_db_1;
 
-USE secao04;
+USE geek_db_1;
 
 CREATE TABLE tipos_produto(
 	codigo INT NOT NULL AUTO_INCREMENT,
