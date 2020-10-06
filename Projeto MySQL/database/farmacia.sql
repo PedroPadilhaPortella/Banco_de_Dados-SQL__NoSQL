@@ -11,17 +11,17 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema farmacia
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `farmacia` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `farmacia` ;
 USE `farmacia` ;
 
 -- -----------------------------------------------------
--- Table `farmacia`.`tipo_produto`
+-- Table `farmacia`.`tipos_produtos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `farmacia`.`tipo_produto` ;
+DROP TABLE IF EXISTS `farmacia`.`tipos_produtos` ;
 
-CREATE TABLE IF NOT EXISTS `farmacia`.`tipo_produto` (
+CREATE TABLE IF NOT EXISTS `farmacia`.`tipos_produtos` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(70) NOT NULL,
+  `tipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `farmacia`.`fabricantes` ;
 
 CREATE TABLE IF NOT EXISTS `farmacia`.`fabricantes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NOT NULL,
+  `fabricante` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -45,22 +45,22 @@ DROP TABLE IF EXISTS `farmacia`.`produtos` ;
 
 CREATE TABLE IF NOT EXISTS `farmacia`.`produtos` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(200) NOT NULL,
+  `produto` VARCHAR(45) NOT NULL,
   `designacao` VARCHAR(200) NOT NULL,
   `composicao` VARCHAR(200) NOT NULL,
   `preco_venda` DECIMAL(8,2) NOT NULL,
   `id_tipo_produto` INT NOT NULL,
-  `id_fabricantes` INT NOT NULL,
+  `id_fabricante` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_produtos_1_idx` (`id_tipo_produto` ASC),
-  INDEX `fk_produtos_2_idx` (`id_fabricantes` ASC),
+  INDEX `fk_produtos_2_idx` (`id_fabricante` ASC),
   CONSTRAINT `fk_produtos_1`
     FOREIGN KEY (`id_tipo_produto`)
-    REFERENCES `farmacia`.`tipo_produto` (`id`)
+    REFERENCES `farmacia`.`tipos_produtos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_produtos_2`
-    FOREIGN KEY (`id_fabricantes`)
+    FOREIGN KEY (`id_fabricante`)
     REFERENCES `farmacia`.`fabricantes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -77,8 +77,8 @@ CREATE TABLE IF NOT EXISTS `farmacia`.`clientes` (
   `nome` VARCHAR(100) NOT NULL,
   `endereco` VARCHAR(200) NOT NULL,
   `telefone` VARCHAR(20) NOT NULL,
-  `codigo_postal` VARCHAR(15) NOT NULL,
-  `localidade` VARCHAR(100) NOT NULL,
+  `cep` VARCHAR(15) NOT NULL,
+  `localidade` VARCHAR(45) NOT NULL,
   `cpf` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -91,8 +91,8 @@ DROP TABLE IF EXISTS `farmacia`.`compras` ;
 
 CREATE TABLE IF NOT EXISTS `farmacia`.`compras` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `data` DATE NOT NULL,
   `id_cliente` INT NOT NULL,
+  `data` DATE NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_compras_1_idx` (`id_cliente` ASC),
   CONSTRAINT `fk_compras_1`
@@ -136,8 +136,8 @@ DROP TABLE IF EXISTS `farmacia`.`medicos` ;
 
 CREATE TABLE IF NOT EXISTS `farmacia`.`medicos` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(70) NOT NULL,
-  `crm` VARCHAR(50) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
+  `crm` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -151,10 +151,10 @@ CREATE TABLE IF NOT EXISTS `farmacia`.`receitas_medica` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_produto_compra` INT NOT NULL,
   `id_medico` INT NOT NULL,
-  `receita` VARCHAR(300) NOT NULL,
+  `receita` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_receitas_medica_1_idx` (`id_produto_compra` ASC),
-  INDEX `fk_produtos_compra_2_idx` (`id_medico` ASC),
+  INDEX `fk_receitas_medica_2_idx` (`id_medico` ASC),
   CONSTRAINT `fk_receitas_medica_1`
     FOREIGN KEY (`id_produto_compra`)
     REFERENCES `farmacia`.`produtos_compra` (`id`)
