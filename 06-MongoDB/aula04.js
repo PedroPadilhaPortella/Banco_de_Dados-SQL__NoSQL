@@ -38,9 +38,9 @@ db.inscricoes.update(
 
 */
 
-a) Abra o terminal no mesmo diretório que está o arquivo contendo os dados;
+//a) Abra o terminal no mesmo diretório que está o arquivo contendo os dados;
 
-b) Execute o comando abaixo: 
+//b) Execute o comando abaixo: 
 
 mongoimport -d meubanco -c inscricoes --jsonArray < inscricoes.json
 
@@ -53,7 +53,7 @@ os dados.
 Como utilizar os recursos avançados do MongoDB para buscar dados por localização?
 */ 
 
-1 - Devemos informar ao MonboDB qual é o campo que deve ser utilizado como índice de busca.
+//1 - Devemos informar ao MonboDB qual é o campo que deve ser utilizado como índice de busca.
 
 db.inscricoes.createIndex(
 	{
@@ -61,7 +61,7 @@ db.inscricoes.createIndex(
 	}
 )
 
-2 - Devemos realizar uma consulta utilizando agregação para que os cálculos sejam aplicados.
+//2 - Devemos realizar uma consulta utilizando agregação para que os cálculos sejam aplicados.
 
 db.inscricoes.aggregate(
 	[
@@ -79,9 +79,9 @@ db.inscricoes.aggregate(
 	]
 )
 
-OBS: Na consulta acima, estamos trazendo 4 resultados, sendo que o primeiro é o próprio elemento da busca.
+//OBS: Na consulta acima, estamos trazendo 4 resultados, sendo que o primeiro é o próprio elemento da busca.
 
-Caso queiramos ignorar o primeiro resultado, então devemos informar isso na consulta.
+//Caso queiramos ignorar o primeiro resultado, então devemos informar isso na consulta.
 
 
 db.inscricoes.aggregate(
