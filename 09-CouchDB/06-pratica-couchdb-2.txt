@@ -18,11 +18,10 @@
 
 [CRUD] -> Create (POST), Retreave (GET), Update (PUT), Delete (DELETE)
 
-[Frontend] <-> [Backend] (Na Geek University usamos Python/Django e PostgreSQL)  
+[Frontend] <-> [Backend] (Na Geek University usamos Python/Django e PostgreSQL)
 
 [Frontend] <-> [API REST do CouchDB]
 
 [GET] -> Considerado um metodo/verbo HTTP seguro. Nao exige autenticacao.
 
-[PUT, POST, DELETE] -> Considerados metodos/verbos HTTP inseguros. Recomenda-se
-autenticacao.
+[PUT, POST, DELETE] -> Considerados metodos/verbos HTTP inseguros. Recomenda-se autenticacao.
