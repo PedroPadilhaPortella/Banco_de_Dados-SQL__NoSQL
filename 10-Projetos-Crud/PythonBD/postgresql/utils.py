@@ -1,5 +1,4 @@
-import MySQLdb
-import os
+import psycopg2
 
 
 def conectar():
@@ -7,15 +6,15 @@ def conectar():
     Função para conectar ao servidor
     """
     try:
-        conn = MySQLdb.connect(
-            db='pmysql',
+        conn = psycopg2.connect(
+            database='ppostgresql',
             host='localhost',
-            user='root',
-            passwd='root'
+            user='Portella',
+            password='postgre'
         )
         return conn
-    except MySQLdb.Error as error:
-        print(f'Erro na conexão ao MySQL Server: {error}')
+    except psycopg2.Error as e:
+        print(f'Erro na conexão ao PostgreSQL Server: {e}')
 
 
 def desconectar(conn):
@@ -44,9 +43,9 @@ def listar():
             print(f'Preço: {produto[2]}')
             print(f'Estoque: {produto[3]}')
             print('--------------------')
-        _ = input() 
+        _ = input()
     else:
-        print('Não existem produtos cadastrados.')
+        print('Não existem produdos cadastrados.')
     desconectar(conn)
 
 
@@ -61,7 +60,7 @@ def inserir():
     preco = float(input('Informe o preço do produto: '))
     estoque = int(input('Informe a quantidade em estoque: '))
 
-    cursor.execute(f"INSERT INTO produtos (nome, preco, estoque) VALUES ('{nome}', {preco}, {estoque})")
+    cursor.execute(f"INSERT INTO produtos (nome, preco, estoque) VALUES ('{nome}',{preco},{estoque})")
     conn.commit()
 
     if cursor.rowcount == 1:
@@ -79,9 +78,9 @@ def atualizar():
     cursor = conn.cursor()
 
     codigo = int(input('Informe o código do produto: '))
-    nome = input('Informe o novo nome do produto: ')
-    preco = float(input('Informe o novo preço do produto: '))
-    estoque = int(input('Informe a nova quantidade em estoque: '))
+    nome = input('Informe o nome do produto: ')
+    preco = float(input('Informe o preço do produto: '))
+    estoque = int(input('Informe a quantidade em estoque: '))
 
     cursor.execute(f"UPDATE produtos SET nome='{nome}', preco={preco}, estoque={estoque} WHERE id={codigo}")
     conn.commit()
@@ -108,7 +107,7 @@ def deletar():
     if cursor.rowcount == 1:
         print('Produto excluído com sucesso.')
     else:
-        print(f'Erro ao excluir o produto com id = {codigo}')
+        print(f'Erro ao excluir o produto com id {codigo}')
     desconectar(conn)
 
 
@@ -116,27 +115,29 @@ def menu():
     """
     Função para gerar o menu inicial
     """
-    while(True):
-        # os.system('clear')
-        print('\n=========Gerenciamento de Produtos==============')
-        print('Selecione uma opção: ')
-        print('1 - Listar produtos.')
-        print('2 - Inserir produtos.')
-        print('3 - Atualizar produto.')
-        print('4 - Deletar produto.')
-        print('5 - Sair...')
-        opcao = int(input())
-        if opcao in [1, 2, 3, 4, 5]:
-            if opcao == 1:
-                listar()
-            elif opcao == 2:
-                inserir()
-            elif opcao == 3:
-                atualizar()
-            elif opcao == 4:
-                deletar()
-            elif opcao == 5:
-                print("Saindo...")
-                break
-        else:
-            print('Opção inválida')
+    while True:
+        try:
+            print('\n=========Gerenciamento de Produtos==============')
+            print('Selecione uma opção: ')
+            print('1 - Listar produtos.')
+            print('2 - Inserir produtos.')
+            print('3 - Atualizar produto.')
+            print('4 - Deletar produto.')
+            print('5 - Sair')
+            opcao = int(input())
+            if opcao in [1, 2, 3, 4, 5]:
+                if opcao == 1:
+                    listar()
+                elif opcao == 2:
+                    inserir()
+                elif opcao == 3:
+                    atualizar()
+                elif opcao == 4:
+                    deletar()
+                elif opcao == 5:
+                    print("Saindo...")
+                    break
+            else:
+                print('Opção inválida')
+        except:
+            print('Erro ao executar operação!')
