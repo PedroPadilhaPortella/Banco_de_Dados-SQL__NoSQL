@@ -1,9 +1,0 @@
-INDEX VERSION 1.131+C:\Users\pedro\Documents\GitHub\Curso_Banco_de_Dados-SQL__NoSQL\10-Projetos-Crud\JavaBD\.metadata\.plugins\org.eclipse.jdt.core
-4088832729.index
-3342327059.index
-4061365062.index
-3740719775.index
-2320875454.index
-1023809721.index
-1067432749.index
-921728135.index
