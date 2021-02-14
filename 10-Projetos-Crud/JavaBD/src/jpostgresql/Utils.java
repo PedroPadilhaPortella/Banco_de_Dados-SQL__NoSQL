@@ -51,9 +51,6 @@ public class Utils {
 		
 		try {
 			Connection conn = conectar();
-            //PreparedStatement MySQL
-            //PreparedStatement produtos = conn.prepareStatement(BUSCAR_TODOS);
-			//PreparedStatement PostgreSQL
 			PreparedStatement produtos = conn.prepareStatement(
 					BUSCAR_TODOS,
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
