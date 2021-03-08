@@ -112,10 +112,7 @@ def deletar():
 
 
 def menu():
-    """
-    Função para gerar o menu inicial
-    """
-    while True:
+    while(True):
         try:
             print('\n=========Gerenciamento de Produtos==============')
             print('Selecione uma opção: ')
@@ -123,7 +120,7 @@ def menu():
             print('2 - Inserir produtos.')
             print('3 - Atualizar produto.')
             print('4 - Deletar produto.')
-            print('5 - Sair')
+            print('5 - Sair...')
             opcao = int(input())
             if opcao in [1, 2, 3, 4, 5]:
                 if opcao == 1:
@@ -140,4 +137,4 @@ def menu():
             else:
                 print('Opção inválida')
         except:
-            print('Erro ao executar operação!')
+            print("Erro ao executar operação.")
