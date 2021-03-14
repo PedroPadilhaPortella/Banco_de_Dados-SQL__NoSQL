@@ -1,13 +1,21 @@
 from pymongo import MongoClient, errors
 from bson.objectid import ObjectId
+from bson import errors as beeros
 
 
 def conectar():
+    """
+    Função para conectar ao servidor
+    """
     conn = MongoClient('localhost', 27017)
+
     return conn
 
 
 def desconectar(conn):
+    """ 
+    Função para desconectar do servidor.
+    """
     if conn:
         conn.close()
 
@@ -94,7 +102,7 @@ def atualizar():
             print('Não existem documentos para serem atualizados.')
     except errors.PyMongoError as e:
         print(f'Erro ao acessar o banco de dados: {e}')
-    except errors.InvalidId as f:
+    except beeros.InvalidId as f:
         print(f'ObjectID inválido. {f}')
     desconectar(conn)
 
@@ -123,7 +131,7 @@ def deletar():
             print('Não existem produtos para serem deletados.')
     except errors.PyMongoError as e:
         print(f'Erro ao acessar o banco de dados: {e}')
-    except errors.InvalidId as f:
+    except beeros.InvalidId as f:
         print(f'ObjectID inválido. {f}')
     desconectar(conn)
 
